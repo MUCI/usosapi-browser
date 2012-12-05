@@ -1,0 +1,44 @@
+﻿<Window x:Class="UsosApiBrowser.BrowserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="USOS API Browser" WindowStyle="SingleBorderWindow" ResizeMode="CanResize" ShowInTaskbar="True"
+        WindowStartupLocation="Manual" MinWidth="950" MinHeight="500" Loaded="Window_Loaded" Margin="0"
+        Padding="0" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="300"
+        d:DesignWidth="640" SizeToContent="Manual" Width="800" Height="500" WindowState="Normal"
+        Background="#FFD4DEF0" Icon="/UsosApiBrowser;component/usosapi.ico">
+    <DockPanel Margin="4">
+        <DockPanel Margin="4">
+            <StackPanel DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch">
+                    <Label Content="USOS API Installation:" Height="28" Width="150" HorizontalAlignment="Stretch" />
+                    <ComboBox Height="23" Name="installationsComboBox" Width="250" IsEditable="True" SelectionChanged="installationsComboBox_SelectionChanged" DropDownClosed="installationsComboBox_DropDownClosed" DropDownOpened="installationsComboBox_DropDownOpened" KeyDown="installationsComboBox_KeyDown"></ComboBox>
+                    <Button Content="OK" Height="23" Name="installationRefreshButton" Width="47" Margin="2" Click="installationRefreshButton_Click" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Consumer Key:" Height="28" Width="150" />
+                    <TextBox Height="23" Name="consumerKeyTextbox" Width="300" BorderBrush="Gray" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Consumer Secret:" Height="28" Width="150" />
+                    <TextBox Height="23" Name="consumerSecretTextbox" Width="300" BorderBrush="Gray" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Token:" Height="28" Width="150" />
+                    <TextBox Height="23" Name="tokenTextbox" Width="211" BorderBrush="Gray"/>
+                    <Button Content="Quick Fill" Height="23" Name="quickFillButton" Width="86" Margin="2" Click="quickFillButton_Click" IsEnabled="False" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Token Secret:" Height="28" Width="150" />
+                    <TextBox Height="23" Name="tokenSecretTextbox" Width="300" BorderBrush="Gray"/>
+                </StackPanel>
+                <Label Height="9" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Methods available:" Width="150" Padding="5" />
+                <TreeView Name="methodsTreeView" Width="300" SelectedItemChanged="methodsTreeView_SelectedItemChanged" BorderBrush="Gray"></TreeView>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel Name="mainDockingPanel" Margin="4"></DockPanel>
+    </DockPanel>
+</Window>

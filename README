@@ -1,0 +1,8 @@
+This application is for testing purposes only. The are tons of WebExceptions
+it doesn't even try to catch. Please note that I am not an experienced .NET
+programmer and it is actually the first application on WPF platform I ever
+made.
+
+Having that said, I still think that it is still quite useful developer tool,
+especially if you're aiming for a deep understanding on how the USOS API
+OAuth authentication actually works.
