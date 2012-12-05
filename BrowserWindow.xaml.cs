@@ -6,6 +6,8 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using Newtonsoft.Json;
+using System.Reflection;
+using System.Diagnostics;
 
 namespace UsosApiBrowser
 {
@@ -32,6 +34,12 @@ namespace UsosApiBrowser
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed)
+            {
+                System.Deployment.Application.ApplicationDeployment ad = System.Deployment.Application.ApplicationDeployment.CurrentDeployment;
+                this.Title += " (v. " + ad.CurrentVersion.ToString() + ")";
+            }
+
             this.varsCache.BindWithTextBox("consumer_key", this.consumerKeyTextbox);
             this.varsCache.BindWithTextBox("consumer_secret", this.consumerSecretTextbox);
             this.varsCache.BindWithTextBox("token", this.tokenTextbox);
