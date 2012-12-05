@@ -7,6 +7,9 @@ methods.
 
 ![Screenshot](https://raw.github.com/MUCI/usosapi-browser/master/extras/screenshot.gif)
 
+*Note:* The list of available methods is dynamically fetched from the chosen
+USOS API server. The screenshot may be outdated.
+
 Disclaimer
 ----------
 
@@ -18,3 +21,8 @@ Having that said, I still think that it is still quite useful developer tool,
 especially if you're aiming for a deep understanding on how the [USOS API
 OAuth authorization](http://apps.usos.edu.pl/developers/api/authorization/)
 actually works.
+
+Installation
+------------
+
+You can use [this deployment site](http://usosphp.mimuw.edu.pl/~rygielski/usosapi-browser/).
