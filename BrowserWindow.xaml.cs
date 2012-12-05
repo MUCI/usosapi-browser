@@ -204,16 +204,23 @@ namespace UsosApiBrowser
             if (selected == null)
                 return;
 
-            /* A panel for out form. Docked in the top. */
+            /* The upper panel - for the method call parameters, etc. Docked in the top. */
 
             var formStackPanel = new StackPanel
             {
                 Width = Double.NaN,
                 Height = Double.NaN,
-                Orientation = Orientation.Vertical
+                Orientation = Orientation.Vertical,
             };
-            this.mainDockingPanel.Children.Add(formStackPanel);
-            DockPanel.SetDock(formStackPanel, Dock.Top);
+            var scrollViewer = new ScrollViewer
+            {
+                Width = Double.NaN,
+                Height = this.getScrollViewerHeight(),
+                Margin = new Thickness(0, 0, 0, 10),
+            };
+            scrollViewer.Content = formStackPanel;
+            this.mainDockingPanel.Children.Add(scrollViewer);
+            DockPanel.SetDock(scrollViewer, Dock.Top);
 
             if (!(selected.Tag is ApiMethod))
                 return;
@@ -265,7 +272,7 @@ namespace UsosApiBrowser
 
                 /* Adding a textbox for a value. */
 
-                var textbox = new TextBox { Width = 300, Height = 23, Tag = arg, BorderBrush = new SolidColorBrush(Colors.Gray) };
+                var textbox = new TextBox { Width = 280, Height = 23, Tag = arg, BorderBrush = new SolidColorBrush(Colors.Gray) };
                 singleArgumentStackPanel.Children.Add(textbox);
 
                 /* Binding textbox value to cache. This will cause the text to be automatically
@@ -354,6 +361,12 @@ namespace UsosApiBrowser
                 FontFamily = new FontFamily("Courier New")
             };
             this.mainDockingPanel.Children.Add(this.methodResultTextbox);
+        }
+
+        private double getScrollViewerHeight()
+        {
+            var parentHeight = this.mainDockingPanel.ActualHeight;
+            return parentHeight / 2;
         }
 
         void consumersigncheckbox_Checked(object sender, RoutedEventArgs e)
