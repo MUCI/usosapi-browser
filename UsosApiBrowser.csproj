@@ -27,7 +27,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://usosphp.mimuw.edu.pl/~rygielski/usosapi-browser/</InstallUrl>
+    <InstallUrl>http://duch.mimuw.edu.pl/~rygielski/usosapi-browser/</InstallUrl>
     <SupportUrl>https://github.com/MUCI/usosapi-browser</SupportUrl>
     <ErrorReportUrl>https://github.com/MUCI/usosapi-browser</ErrorReportUrl>
     <TargetCulture>en</TargetCulture>
@@ -36,7 +36,7 @@
     <SuiteName>USOS</SuiteName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>24</ApplicationRevision>
+    <ApplicationRevision>27</ApplicationRevision>
     <ApplicationVersion>1.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
