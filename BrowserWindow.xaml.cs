@@ -61,7 +61,9 @@ namespace UsosApiBrowser
             try
             {
                 this.installationsComboBox.Items.Clear();
-                foreach (var installation in this.apiConnector.GetInstallations())
+                var installations = this.apiConnector.GetInstallations();
+                installations.Add(new ApiInstallation() { base_url = "http://127.0.0.1:8000/" });
+                foreach (var installation in installations)
                 {
                     this.installationsComboBox.Items.Add(new ComboBoxItem
                     {
@@ -530,14 +532,29 @@ namespace UsosApiBrowser
             request_token_args.Add("oauth_callback", "oob");
             if (scopeKeys.Count > 0)
                 request_token_args.Add("scopes", string.Join("|", scopeKeys));
-            string request_token_url = this.apiConnector.GetURL(new ApiMethod { name = "services/oauth/request_token" },
-                request_token_args, this.consumerKeyTextbox.Text, this.consumerSecretTextbox.Text, "", "", true);
 
             try
             {
                 /* Get and parse the request_token response string. */
 
-                string tokenstring = this.apiConnector.GetResponse(request_token_url);
+                string tokenstring;
+                try
+                {
+                    string request_token_url = this.apiConnector.GetURL(new ApiMethod { name = "services/oauth/request_token" },
+                        request_token_args, this.consumerKeyTextbox.Text, this.consumerSecretTextbox.Text, "", "", true);
+                    tokenstring = this.apiConnector.GetResponse(request_token_url);
+                }
+                catch (WebException ex)
+                {
+                    /* Let's try the same URL, but without SSL. This will allow it to work on
+                     * developer installations (which do not support SSL by default). If it still
+                     * throws exceptions, pass. */
+
+                    string request_token_url = this.apiConnector.GetURL(new ApiMethod { name = "services/oauth/request_token" },
+                        request_token_args, this.consumerKeyTextbox.Text, this.consumerSecretTextbox.Text, "", "", false);
+                    tokenstring = this.apiConnector.GetResponse(request_token_url);
+                }
+                
                 string request_token = null;
                 string request_token_secret = null;
                 string[] parts = tokenstring.Split('&');
@@ -580,12 +597,26 @@ namespace UsosApiBrowser
 
                 var access_token_args = new Dictionary<string, string>();
                 access_token_args.Add("oauth_verifier", verifier);
-                var access_token_url = this.apiConnector.GetURL(new ApiMethod { name = "services/oauth/access_token" }, access_token_args,
-                    this.consumerKeyTextbox.Text, this.consumerSecretTextbox.Text, request_token, request_token_secret, true);
+                try
+                {
+                    var access_token_url = this.apiConnector.GetURL(new ApiMethod { name = "services/oauth/access_token" }, access_token_args,
+                        this.consumerKeyTextbox.Text, this.consumerSecretTextbox.Text, request_token, request_token_secret, true);
+                    tokenstring = this.apiConnector.GetResponse(access_token_url);
+                }
+                catch (WebException ex)
+                {
+                    /* Let's try the same URL, but without SSL. This will allow it to work on
+                     * developer installations (which do not support SSL by default). If it still
+                     * throws exceptions, pass. */
+
+                    var access_token_url = this.apiConnector.GetURL(new ApiMethod { name = "services/oauth/access_token" }, access_token_args,
+                        this.consumerKeyTextbox.Text, this.consumerSecretTextbox.Text, request_token, request_token_secret, false);
+                    tokenstring = this.apiConnector.GetResponse(access_token_url);
+                }
+                
 
                 /* Get and parse the access_token response string. */
 
-                tokenstring = this.apiConnector.GetResponse(access_token_url);
                 string access_token = null;
                 string access_token_secret = null;
                 parts = tokenstring.Split('&');
