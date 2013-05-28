@@ -25,5 +25,5 @@ actually works.
 Installation
 ------------
 
-You can use [this deployment site](http://usosphp.mimuw.edu.pl/~rygielski/usosapi-browser/).
+You can use [this deployment site](http://duch.mimuw.edu.pl/~rygielski/usosapi-browser/).
 Please note, that it can be a little ahead or behind the master branch.
